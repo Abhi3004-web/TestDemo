@@ -24,11 +24,25 @@
     </style>
     <script>
         function add() {
-            let inputStr = document.getElementById("inputStr").innerHTML;
+            let inputStr = document.getElementById("inputStr").value;
             let outputStr = document.getElementById("outputStr");
+            if (outputStr.children.length) {
+                outputStr.removeChild(outputStr.firstChild);
+            }
             let output;
-            if (!inputStr) { output = 0; }
+            if (!inputStr) {
+                output = 0;
+            }
 
+            let delimiter = /,|\n/; // Default delimiters: comma and newline
+            const numberList = inputStr.split(delimiter).map(num => parseInt(num.trim(), 10));
+            const negativeNumbers = numberList.filter(num => num < 0);
+
+            if (negativeNumbers.length > 0) {
+                output = `Negative numbers not allowed: ${negativeNumbers.join(", ")}`;
+            } else {
+                output = numberList.reduce((sum, num) => sum + (isNaN(num) ? 0 : num), 0);
+            }
             const para = document.createElement("p");
             para.innerHTML = "Output : " + output.toString();
             outputStr.appendChild(para);
