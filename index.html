@@ -34,7 +34,15 @@
                 output = 0;
             }
 
-            let delimiter = /,|\n/; // Default delimiters: comma and newline
+            let delimiter = /,||\n/; // Default delimiters: comma and newline
+
+
+            if (inputStr.startsWith("//")) {
+                const delimiterEndIndex = inputStr.indexOf("\n");
+                delimiter = /;||\n/; // Escape special regex chars
+                inputStr = inputStr.substring(3);
+            }
+
             const numberList = inputStr.split(delimiter).map(num => parseInt(num.trim(), 10));
             const negativeNumbers = numberList.filter(num => num < 0);
 
