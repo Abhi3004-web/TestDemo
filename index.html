@@ -24,15 +24,25 @@
     </style>
     <script>
         function add() {
-            alert("Add");
+            let inputStr = document.getElementById("inputStr").innerHTML;
+            let outputStr = document.getElementById("outputStr");
+            let output;
+            if (!inputStr) { output = 0; }
+
+            const para = document.createElement("p");
+            para.innerHTML = "Output : " + output.toString();
+            outputStr.appendChild(para);
         }
     </script>
 </head>
 
 <body>
     <h1>Perform Add Method</h1>
-    <input type="text" />
+    <input type="text" id="inputStr" />
+
     <button onclick="add()">Add</button>
+    <div id="outputStr"></div>
+
 </body>
 
 </html>
